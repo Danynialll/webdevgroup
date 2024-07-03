@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" sizes="16x16" href="images/TAX.png">
+
+	<!-- Stylesheets
+		============================================= -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+		rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Bebas Neue' 
+		rel='stylesheet'>
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+		crossorigin="anonymous">
+	<!-- JS, Popper.js, and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+
+	<title> Tax Calculator</title> 
+	<style>
+		
+		[v-cloak] {
+			display: none;
+		}
+		
+		.tax-image {
+			-webkit-filter: drop-shadow(12px 12px 7px rgba(29, 31, 53, 0.5));
+             filter: drop-shadow(12px 12px 7px rgba(40, 34, 54, 0.5)); 
+			 float: right;
+			 transform: rotate(20deg);
+			 margin-top: 0px;
+			 border: none;
+
+		 }
+        
+        .navbar a {
+            float: middle;
+            display: block;
+         	border-radius: 27%; 
+            background-color: #142428; 
+            color: #dfeef0;
+            text-align: right; 
+            padding: 10px 10px; 
+	        margin-left: 6px;
+			margin-top: 14px;
+         }
+
+        .home-icon {
+			border-radius: 50%;
+			background-position: right; 
+			padding-left: 18px; 
+			line-height: 0px; 
+			background-image: url(images/home.png);
+			background-size: cover;
+			width: 40px;
+			height: 40px;
+        }
+
+        .home-icon i {
+         font-size: 20px; /* Adjust size as needed */
+         }
+
+		body {
+
+			font-family: 'Roboto';
+			background: linear-gradient(315deg,  #4F4A41 15%, #254E58 50%, #112D32 70%);
+			animation: gradient 15s ease infinite;
+			background-size: 400% 400%;
+			background-attachment: fixed;
+        }
+
+		@keyframes gradient {
+			0% {
+				background-position: 0% 0%;
+			}
+			50% {
+				background-position: 100% 100%;
+			}
+			100% {
+				background-position: 0% 0%;
+			}
+		}
+        
+		h1 {
+			text-align: center;
+			font-family: 'Poppins', sans-serif;
+			font-size: 3em;
+			color: white;
+			text-shadow: 5px 4px 0.5px rgba(0,0,0,0.3);
+			margin-bottom: 30px;
+			margin-top:120px;
+			
+		}
+
+		h1 span {
+			text-align: center;
+			font-family: 'Poppins', sans-serif;
+			font-size: 3em;
+			color: white;
+			text-shadow: 5px 4px 0.5px rgba(0,0,0,0.3);
+			font-size: 65px;
+		}
+
+		h2 {
+			font-family: sans-serif;
+			font-weight: 600;
+			font-size: 24px;
+			color: white;
+		}
+
+		h2 span {
+			color: white;
+			text-shadow: 5px 4px 0.5px rgba(0,0,0,0.3);
+		}
+
+		h3 {
+			font-family: sans-serif;
+			font-weight: 600;
+			font-size: 20px;
+			color: white;
+			text-shadow: 5px 4px 0.5px rgba(0,0,0,0.3);
+		}
+
+		h3 span {
+			color: white;
+		}
+		
+
+		.intro {
+			text-align: start;
+			font-family: sans-serif;
+			font-size: 15px;
+			vertical-align: middle;
+			margin: 30px;
+			color: white;
+		}
+
+		p {
+			font-family: sans-serif;
+			font-size: 15px;
+			color: white;
+		}
+
+		.section {
+			padding: 20px;
+			color: white;
+			text-align: center;
+		}
+
+		#section-salary {
+			background-color: #112d32;
+		}
+
+		#section-net-income {
+			background: #88bdbc;
+		}
+
+		#section-details {
+			padding: 20px;
+		}
+
+		.irs {
+			margin-bottom: 25px;
+		}
+
+		.irs-min,
+		.irs-max,
+		.irs-single {
+			font-size: 14px !important;
+			font-family: 'Roboto' !important;
+		}
+
+		.irs-min,
+		.irs-max {
+			background: #112d32 !important;
+			color: #fff !important;
+		}
+
+		.irs--flat .irs-bar,
+		.irs--round .irs-bar {
+			background: #88bdbc !important;
+		}
+
+		.irs-single {
+			background-color: #88bdbc !important;
+		}
+
+		.irs-handle {
+			border-color: #6e6658 !important;
+			cursor: pointer !important;
+		}
+
+		.irs-grid-text {
+			color: white !important;
+		}
+
+		label {
+			font-size: 13px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.progress {
+			margin-bottom: 5px;
+			height: 30px;
+			background-color: rgba(0, 0, 0, 0.15);
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+			border-radius: 0;
+		}
+
+		.progress span {
+			font-weight: 400;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			text-transform: uppercase;
+			font-size: 13px;
+			line-height: 30px;
+		}
+
+		input[type="checkbox"],
+		input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			z-index: -1;
+		}
+
+		input[type="checkbox"]+label::after {
+			content: "\2714";
+			color: #2c3e50;
+		}
+
+		input[type="checkbox"]:checked+label::before,
+		input[type="radio"]:checked+label::before {
+			content: " ";
+			background: #88bdbc;
+		}
+
+		input[type="checkbox"]+label::after,
+		input[type="radio"]+label::after {
+			-webkit-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+			transform: scale(0);
+		}
+
+		/* Number */
+		input[type="number"] {
+			background-color: transparent;
+			color: white;
+			border: 2px solid #ffffff;
+			border-radius: 0px;
+			width: 100px;
+		}
+
+		.number-label {
+			position: relative;
+			display: inline-block;
+			color: white;
+		}
+
+		.number-label::before {
+			position: absolute;
+			top: -.5em;
+			left: 0;
+			content: "RM";
+		}
+
+		/* Checkbox */
+		input[type="checkbox"]+label::after {
+			content: " ";
+			color: #2c3e50;
+		}
+
+		/* Radio */
+		input[type="radio"]+label::before {
+			border-radius: 50%;
+		}
+
+		input[type=radio]+label::after {
+			content: " ";
+			top: .25em;
+			left: .25em;
+			width: 1em;
+			height: 1em;
+			background: #fff;
+			border: .2em solid #2c3e50;
+			border-radius: 50%;
+		}
+
+		input[type="checkbox"]:checked+label::after,
+		input[type=radio]:checked+label::after {
+			-webkit-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+			transform: scale(1);
+		}
+
+		.checkbox-label {
+			position: relative;
+			display: inline-block;
+			padding: 0 0 0 2em;
+			cursor: pointer;
+			color: white;
+		}
+
+		.checkbox-label::before,
+		.checkbox-label::after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 1.5em;
+			height: 1.5em;
+		}
+
+		.checkbox-label::before {
+			content: " ";
+			border: 2px solid #96a4b0;
+			border-radius: 0px;
+		}
+
+		#calculation-details-tabs {
+			margin-top: 20px;
+			background: #88bdbc;
+			margin: 20px 0px 0px 0px;
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		#calculation-details-tabs .col-2 {
+			padding: 0px 10px 0px 0px;
+		}
+
+		#calculation-details-tabs .col-10 {
+			background: white;
+			border-radius: 0px;
+			padding: 10px 15px;
+		}
+
+		#detail-tabs-results {
+			width: 100%;
+		}
+
+		#detail-tabs-results td:nth-child(2) {
+			text-align: right;
+		}
+
+		#detail-tabs-results tr {
+			border-bottom: 1px solid #43499a;
+		}
+
+		#disqus_thread {
+			margin-top: 30px;
+			background: #e8e8e8;
+			border-top: 5px #88bdbc solid;
+			padding: 20px;
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+
+		@media only screen and (max-width: 700px) {
+			.nav-pills .nav-link {
+				margin-top: 8px;
+				padding: 5px;
+				font-size: 11px;
+				background-color: 9#071716;
+				text-transform: uppercase;
+				text-align: center;
+				margin-bottom: 8px;
+			}
+
+			#calculation-details-tabs {
+				margin: 20px -20px 0px -20px;
+				padding: 5px;
+			}
+		}
+
+		.wave-container {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 12em; /* Adjust height as needed */
+			overflow: hidden;
+			z-index: -1;
+		}
+
+		.wave {
+			background: rgb(255 255 255 / 25%);
+			border-radius: 1000% 1000% 0 0;
+			position: absolute;
+			width: 200%;
+			height: 12em;
+			animation: wave 10s -3s linear infinite;
+			transform: translate3d(0, 0, 0);
+			opacity: 0.8;
+			bottom: 0;
+			left: 0;
+		}
+
+		.wave:nth-of-type(2) {
+			bottom: -1.25em;
+			animation: wave 18s linear reverse infinite;
+			opacity: 0.8;
+		}
+
+		.wave:nth-of-type(3) {
+			bottom: -2.5em;
+			animation: wave 20s -1s reverse infinite;
+			opacity: 0.9;
+		}
+
+		@keyframes wave {
+			2% {
+				transform: translateX(1);
+			}
+
+			25% {
+				transform: translateX(-25%);
+			}
+
+			50% {
+				transform: translateX(-50%);
+			}
+
+			75% {
+				transform: translateX(-25%);
+			}
+
+			100% {
+				transform: translateX(1);
+			}
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- Document Wrapper
+		============================================= -->
+	<div class="clearfix">
+
+		<div class="navbar">
+			<a href="index.html" class="home-icon"></a>
+		</div>
+        
+		<!-- Content
+			============================================= -->
+		    
+			<figure>
+				<!-- <img src="images/TAX.png" width="340px"
+				 class="tax-image" > -->
+			
+			  </figure>
+		
+		
+		
+			<div id="wrapper">
+				<h1>Malaysia <span>Tax</span> Calculator</h1>
+			<i18n path="intro.content" tag="p" class="intro">
+				<template #average_year>
+					<span>{{ $t('intro.average_year') }}</span>
+				</template>
+				<template #average_salary>
+					<b>{{ $t('intro.average_salary') }}</b>
+				</template>
+			</i18n>
+
+			<section id="content">
+
+				<div id="section-salary" class="section">
+
+					<i18n path="salary.title" tag="h2">
+						<template #ayear>
+							<b>{{ $t('salary.ayear') }}</b>
+						</template>
+						<template #expenses>
+							<span style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
+								{{ $t('salary.expenses') }}
+							</span>
+						</template>
+					</i18n>
+
+					<div class="container clearfix divcenter center">
+						<!-- <h3 class="divcenter font-body nobottommargin"></h3> -->
+
+						<p style="margin-top: 0px; margin-bottom: 10px;">
+							<label class="number-label" style="margin-right: 20px;"></label>
+							<input class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
+						</p>
+
+						<div class="white-section">
+							<input class="salary-range" type="range"></input>
+						</div>
+
+						<p style="margin-top: 20px; margin-bottom: 0px;">
+							<input v-if="!isNonResidents" id="permanentResident" class="checkbox-style" v-model="isPermanentResident" type="checkbox">
+							<label v-if="!isNonResidents" for="permanentResident" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
+							<input v-if="!isPermanentResident" id="nonResidents" class="checkbox-style" v-model="isNonResidents" type="checkbox">
+							<label v-if="!isPermanentResident" for="nonResidents" class="checkbox-label" style="margin-right: 20px;">Non-Residents (Stay Less than 183 Days)</label>
+						</p>
+
+					</div>
+				</div>
+
+				<div id="section-net-income" class="section">
+					<div class="container clearfix divcenter center">
+
+						<h2 style="margin-bottom: 20px;">{{ $t('salary.net_income') }}<br />{{incomeNet | toMYR}}</h2>
+
+						<div class="progress">
+							<div class="progress-bar progress-bar-animated" role="progressbar"
+								v-bind:style="{ width: epfWithholdPercent  * 2 + '%', 'background-color': '#0042bb;' }">
+								<span>
+									EPF Contribution: {{epfContributionAmount | toMYR}} ({{epfWithholdPercent}}%)
+								</span>
+							</div>
+						</div>
+
+						<div class="progress">
+							<div class="progress-bar progress-bar-animated" role="progressbar"
+								v-bind:style="{ width: incomeTaxPercent  * 2 + '%', 'background-color': '#7752e8' }">
+								<span>
+									Income Tax: {{incomeTaxAmount | toMYR}} ({{incomeTaxPercent}}%)
+								</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div id="section-details">
+
+					<h2 style="text-shadow: 5px 4px 0.5px rgba(0,0,0,0.3);">Calculation <span>details</span></h2>
+
+					<div class="row" id="calculation-details-tabs">
+
+						<div class="col-3 col-md-2">
+
+							<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
+								<li class="nav-item" role="tab" aria-controls="tab-epf-withhold" aria-selected="false">
+									<a href="#tab-epf-withhold" class="nav-link" data-toggle="tab">EPF Contribution</a></li>
+								<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
+									<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
+								<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
+									<a href="#tab-intro" class="nav-link active" data-toggle="tab">Net Income</a></li>
+							</ul>
+
+						</div>
+
+						<div class="col-9 col-md-10">
+
+							<div class="tab-content" id="detail-tabs">
+
+								<div class="tab-pane fade show active" id="tab-intro" role="tabpanel">
+
+									<table id="detail-tabs-results">
+										<tr>
+											<td>Salary</td>
+											<td>{{salary | toMYR}}</td>
+										</tr>
+										<tr>
+											<td>EPF Contribution</td>
+											<td>- {{epfContributionAmount | toMYR}}</td>
+										</tr>
+										<tr>
+											<td>Income Tax</td>
+											<td>- {{incomeTaxAmount | toMYR}}</td>
+										</tr>
+										<tr style="border-bottom: none; border-top: 2px solid gray;">
+											<td>Net Income</td>
+											<td>{{incomeNet | toMYR}}</td>
+										</tr>
+									</table>
+
+								</div>
+
+								<div class="tab-pane fade" id="tab-epf-withhold" role="tabpanel">
+
+									<div class="row">
+
+										<div class="col-md-6">
+											<p>
+												If you are a salaried employee and are a Malaysian or a Permanent Resident in Malaysia, every month, when paying out your salary, your employer is required to withhold the portion of your pay that needs to go into your EPF accounts. That portion will be paid into your EPF accounts as your employee’s contribution.
+											</p>
+											<div>
+												<h3 class="nobottommargin">What is <span>EPF</span></h3>
+											</div>
+											<p>
+												The Employees Provident Fund (EPF) in Malaysia is a compulsory savings scheme where both employees and employers contribute a fixed percentage of the employee's monthly salary, currently set at 11% of earnings up to a maximum of RM6,000 per month. 
+											</p>
+											<p>
+												This fund serves as a financial safety net for employees during retirement and also supports various life milestones such as home ownership and medical expenses. 
+											</p>
+											<p>
+												It plays a crucial role in securing financial stability for Malaysian workers throughout their careers and into retirement.
+											</p>
+											<p style="font-size: 18px; font-weight: bold;">Your EPF withhold is <b style="color: #2d5f5d;">{{epfContributionAmount | toMYR}}</b>.</p>
+										</div>
+
+										<div class="col-md-6">
+											<table class="table">
+												<thead class="thead-dark">
+													<tr>
+														<th><strong>Monthly Salary Range(RM) </strong></th>
+														<th><strong>EPF contribution rate (%)</strong></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Up to 6, 000</td>
+														<td>11%</td>
+													</tr>
+													
+													
+												</tbody>
+											</table>
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="tab-pane fade" id="tab-income-tax" role="tabpanel">
+
+									<div class="row">
+
+										<div class="col-md-6">
+											<p>
+												Income tax rates depend on an individual's tax residency status. You will be treated as a tax resident for a particular Year of Assessment (YA) if you are a:
+											</p>
+											<ol style="list-style-type:lower-alpha">
+												<li>Malaysia Citizen or Permanent Resident who resides in Malaysia except for temporary absences; or</li>
+												<li>Foreigner who has stayed / worked in Malaysia (excludes director of a company) for 183 days or more in the year preceding the YA.</li>
+											</ol>
+											<p>
+												Otherwise, you will be treated as a non-resident of Malaysia for tax purposes.
+											</p>
+											<p>
+												Malaysia's personal income tax rates for resident taxpayers are progressive. This means higher income earners pay a proportionately higher tax, with the current highest personal income tax rate at 30%.
+											</p>
+											<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b style="color: black;">{{incomeTaxAmount | toMYR}}</b>.</p>
+										</div>
+
+										<div class="col-md-6">
+											<table class="table">
+												<thead class="thead-dark">
+													<tr>
+														<th><strong>Category</strong></th>
+														<th><strong>Chargeable Income</strong></th>
+														<th><strong>Tax Rate</strong></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>A</td>
+														<td>0 -  5,000</td>
+														<td>0%</td>
+													</tr>
+													<tr>
+														<td>B</td>
+														<td>5,001 - 20,000</td>
+														<td>1%</td>
+													</tr>
+													<tr>
+														<td>C</td>
+														<td>20,001 - 35,000</td>
+														<td>3%</td>
+													</tr>
+													<tr>
+														<td>D</td>
+														<td>35,001 - 50,000</td>
+														<td>6%</td>
+													</tr>
+													<tr>
+														<td>E</td>
+														<td>50,001 - 70,000</td>
+														<td>11%</td>
+													</tr>
+													<tr>
+														<td>F</td>
+														<td>70,000 - 100,000</td>
+														<td>19%</td>
+													</tr>
+													<tr>
+														<td>G</td>
+														<td>100,001 - 400,000</td>
+														<td>25%</td>
+													</tr>
+													<tr>
+														<td>H</td>
+														<td>401,001 - 600,000</td>
+														<td>26%</td>
+													</tr>
+													<tr>
+														<td>I</td>
+														<td>600,001 - 2,000,000</td>
+														<td>28%</td>
+													</tr>
+													<tr>
+														<td>J</td>
+														<td>Exceeding 2,000,000</td>
+														<td>30%</td>
+													</tr>
+													
+												</tbody>
+											</table>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<section id="footer" style="padding: 0px 20px 0px 20px;">
+
+				<i18n path="about.title" tag="h2">
+					<template #website>
+						
+						<span>Malaysia Tax Calculator</span>
+					</template>
+				</i18n>
+				<i18n path="about.content" tag="p">
+				</i18n>
+
+				<h3>{{ $t('disclaimer.title') }}</h3>
+				<p>{{ $t('disclaimer.content') }}</p>
+
+				
+
+			</section>
+
+		</div>
+
+	</div><!-- #wrapper end -->
+	<div class="wave-container">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+	<!-- External JavaScripts
+		============================================= -->
+	
+	<script type="application/javascript" src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+	<script type="application/javascript" src="https://unpkg.com/vue-i18n@8.21.0/dist/vue-i18n.min.js"></script>
+	<script type="application/javascript" src="malaysiataxi18n.js"></script>
+
+	<!-- Range Slider Plugin -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"
+		integrity="sha512-kZsqvmw94Y8hyhwtWZJvDtobwQ9pLhF1DuIvcqSuracbRn6WJs1Ih+04fpH/8d1CFKysp7XA1tR0Aa2jKLTQUg=="
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"
+		integrity="sha512-NWCafukXClS6fKch6bSMl/WvPzZrD1OGMf1oMAnFYXSSKZ7hgeswls+r4SdK4bFJauVwmvFf7HlMwji2TsjROA=="
+		crossorigin="anonymous" />
+
+	<!-- Footer Scripts
+		============================================= -->
+	<script type="application/javascript">
+
+		function uiSalaryUpdate(data) {
+			app.uiSalary = data.from;
+		}
+
+		function rangeSalaryUpdate() {
+			var slider = jQuery(".salary-range").data("ionRangeSlider");
+			slider.update({
+				from: app.uiSalary
+			})
+		}
+
+		jQuery(document).ready(function () {
+			var slider = jQuery(".salary-range").ionRangeSlider({
+				grid: true,
+				min: 24000,
+				max: 400000,
+				from: 75400,
+				step: 100,
+				skin: "round",
+				hide_min_max: true,
+				hide_from_to: false,
+				//grid_snap: true,
+				prefix: '‎RM ',
+				prettify_separator: ',',
+				prettify_enabled: true,
+				onChange: uiSalaryUpdate
+			});
+		});
+
+	</script>
+
+</body>
+
+</html>

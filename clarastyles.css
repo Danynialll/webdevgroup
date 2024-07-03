@@ -1,0 +1,188 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #204060; /* Darker green background for the body */
+    color: #ffffff; /* White text color for better contrast */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(315deg,  #4F4A41 15%, #254E58 50%, #112D32 70%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    background-color: transparent; /* or any color you prefer */
+}
+        
+.navbar a {
+    float: left;
+    display: block;
+    border-radius: 27%; 
+    background-color: #142428; 
+    color: #dfeef0;
+    text-align: right; 
+    padding: 10px 10px; 
+    margin-left: 14px;
+    margin-top: 14px;
+ }
+
+.home-icon {
+    border-radius: 50%;
+    background-position: right; 
+    padding-left: 18px; 
+    line-height: 0px; 
+    background-image: url(images/home.png);
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #7b91a2;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3em;
+    color: white;
+    text-shadow: 5px 4px 0.5px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    margin-top:120px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+input[type="number"],
+select,
+input[type="text"],
+button {
+    width: calc(100% - 22px); /* Adjust width to make all inputs and buttons the same length */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white; /* Light bluish-gray background */
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+button {
+    background-color: #112D32; /* Dark teal primary color */
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #254E58; /* Darker teal on hover */
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #7b91a2;; /* Teal background */
+    border-radius: 5px;
+    font-size: 18px;
+    color: #112D32; /* Dark teal primary color */
+}
+
+.next-button {
+    margin-bottom: 20px; /* Space below the "Next" button */
+}
+
+
+.wave-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12em; /* Adjust height as needed */
+    overflow: hidden;
+    z-index: -1;
+}
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: absolute;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}

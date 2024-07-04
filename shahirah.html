@@ -58,7 +58,7 @@
 			background-position: right; 
 			padding-left: 18px; 
 			line-height: 0px; 
-			background-image: url(home.png);
+			background-image: url(images/home.png);
 			background-size: cover;
 			width: 40px;
 			height: 40px;
@@ -532,7 +532,7 @@
 							<div class="progress-bar progress-bar-animated" role="progressbar"
 								v-bind:style="{ width: incomeTaxPercent  * 2 + '%', 'background-color': '#7752e8' }">
 								<span>
-									Income Tax: {{incomeTaxAmount | toMYR}} ({{incomeTaxPercent}}%)
+									Income Tax: {{incomeTaxAmount | toMYR}} 
 								</span>
 							</div>
 						</div>
@@ -552,7 +552,7 @@
 								<li class="nav-item" role="tab" aria-controls="tab-epf-withhold" aria-selected="false">
 									<a href="#tab-epf-withhold" class="nav-link" data-toggle="tab">EPF Contribution</a></li>
 								<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
-									<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
+									<a href="#tab-estimated-income-tax" class="nav-link" data-toggle="tab">Estimated Income Tax Calculation</a></li>
 								<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
 									<a href="#tab-intro" class="nav-link active" data-toggle="tab">Net Income</a></li>
 							</ul>
@@ -690,7 +690,7 @@
 													</tr>
 													<tr>
 														<td>F</td>
-														<td>70,000 - 100,000</td>
+														<td>70,001 - 100,000</td>
 														<td>19%</td>
 													</tr>
 													<tr>

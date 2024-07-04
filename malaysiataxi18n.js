@@ -105,36 +105,39 @@ var app = new Vue({
             var taxableIncome = this.taxableIncome - this.epfContributionAmount;
             this.incomeTaxAmount = 0;
 
-            if (taxableIncome >= 400001) {
-                this.incomeTaxAmount = (taxableIncome - 400000) * 0.25 + 78000;
-            }
-            else if (taxableIncome >= 250001) {
-                this.incomeTaxAmount = (taxableIncome - 250000) * 0.245 + 44500;
-            }
-            else if (taxableIncome >= 100001) {
-                this.incomeTaxAmount = (taxableIncome - 100000) * 0.24 + 16500;
-            }
-            else if (taxableIncome >= 70001) {
-                this.incomeTaxAmount = (taxableIncome - 70000) * 0.21 + 7700;
-            }
-            else if (taxableIncome >= 50001) {
-                this.incomeTaxAmount = (taxableIncome - 50000) * 0.14 + 3250;
-            }
-            else if (taxableIncome >= 35001) {
-                this.incomeTaxAmount = (taxableIncome - 35000) * 0.08 + 600;
-            }
-            else if (taxableIncome >= 20001) {
-                this.incomeTaxAmount = (taxableIncome) * 0.03 + 150;
-            }
-            else {
-                this.incomeTaxAmount = 0;
+            if (taxableIncome > 400000) { 
+                this.incomeTaxAmount = (taxableIncome - 400000) * 0.26 + 50 + (35000-20000)*0.03 + (50000-35000)*0.06 + (70000-50000)*0.11 + (100000-70000)* 0.19 + (400000-100000)*0.25; 
+            } 
+         
+            else if (taxableIncome > 100000) { 
+                this.incomeTaxAmount = (taxableIncome - 100000) * 0.25 + 50 + (35000-20000)*0.03 + (50000-35000)*0.06 + (70000-50000)*0.11 + (100000-70000)* 0.19; 
+            } 
+             
+            else if (taxableIncome > 70000) { 
+                this.incomeTaxAmount = (taxableIncome - 70000) * 0.19 + 50 + (35000-20000)*0.03 + (50000-35000)*0.06 + (70000-50000)*0.11; 
+            } 
+             
+            else if (taxableIncome > 50000) { 
+                this.incomeTaxAmount = (taxableIncome - 50000) * 0.11 + 50 + (35000-20000)*0.03 + (50000-35000)*0.06; 
+            } 
+            else if (taxableIncome > 35000) { 
+                this.incomeTaxAmount = (taxableIncome - 35000) * 0.06 + 50 + (35000-20000)*0.03; 
+            } 
+            else if (taxableIncome > 20000) { 
+                this.incomeTaxAmount = (taxableIncome-20000) * 0.03 + 50; 
+            } 
+            else if (taxableIncome > 5000) { 
+                this.incomeTaxAmount = (taxableIncome) * 0.01; 
+            } 
+            else { 
+                this.incomeTaxAmount = 0; // No tax for income below 5000 
             }
             
 
             // 15% of gross income or 22% of net income
             if (this.isNonResidents) {
-                if (taxableIncome * 0.15 > this.incomeTaxAmount) {
-                    this.incomeTaxAmount = taxableIncome * 0.15
+                if (taxableIncome * 0.30 > this.incomeTaxAmount) {
+                    this.incomeTaxAmount = taxableIncome * 0.30
                 }
             }
 

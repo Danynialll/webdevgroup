@@ -305,84 +305,89 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                flatpickr('.datetime-picker', {
-                    enableTime: true,
-                    dateFormat: "Y-m-d H:i",
-                    time_24hr: false,
-                    defaultHour: 10,
-                    defaultMinute: 0,
-                });
-            });
+    flatpickr('.datetime-picker', {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        time_24hr: false,
+        defaultHour: 10,
+        defaultMinute: 0,
+    });
+});
 
-            function calculateDateTimeDifference() {
-                const dateTime1 = new Date(document.getElementById('date1').value);
-                const dateTime2 = new Date(document.getElementById('date2').value);
+function calculateDateTimeDifference() {
+    const dateTime1 = new Date(document.getElementById('date1').value);
+    const dateTime2 = new Date(document.getElementById('date2').value);
 
-                if (isNaN(dateTime1) || isNaN(dateTime2)) {
-                    alert("Please enter valid dates and times.");
-                    return;
-                }
+    if (isNaN(dateTime1) || isNaN(dateTime2)) {
+        alert("Please enter valid dates and times.");
+        return;
+    }
 
-                const diffTime = Math.abs(dateTime2 - dateTime1);
+    if (dateTime2 < dateTime1) {
+        alert("End date cannot be earlier than start date.");
+        return;
+    }
 
-                const diffSeconds = Math.floor(diffTime / 1000) % 60;
-                const diffMinutes = Math.floor(diffTime / (1000 * 60)) % 60;
-                const diffHours = Math.floor(diffTime / (1000 * 60 * 60)) % 24;
+    const diffTime = Math.abs(dateTime2 - dateTime1);
 
-                // Calculate difference in years, months, and days
-                let startDate = new Date(dateTime1);
-                let endDate = new Date(dateTime2);
+    const diffSeconds = Math.floor(diffTime / 1000) % 60;
+    const diffMinutes = Math.floor(diffTime / (1000 * 60)) % 60;
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60)) % 24;
 
-                let diffYears = endDate.getFullYear() - startDate.getFullYear();
-                let diffMonths = endDate.getMonth() - startDate.getMonth();
-                let diffDays = endDate.getDate() - startDate.getDate();
+    // Calculate difference in years, months, and days
+    let startDate = new Date(dateTime1);
+    let endDate = new Date(dateTime2);
 
-                // Adjust for negative months
-                if (diffDays < 0) {
-                    diffMonths--;
-                    // Get days in previous month
-                    endDate.setMonth(endDate.getMonth() - 1);
-                    diffDays += new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0).getDate();
-                }
+    let diffYears = endDate.getFullYear() - startDate.getFullYear();
+    let diffMonths = endDate.getMonth() - startDate.getMonth();
+    let diffDays = endDate.getDate() - startDate.getDate();
 
-                // Adjust for negative years and months
-                if (diffMonths < 0) {
-                    diffYears--;
-                    diffMonths += 12;
-                }
+    // Adjust for negative months
+    if (diffDays < 0) {
+        diffMonths--;
+        // Get days in previous month
+        endDate.setMonth(endDate.getMonth() - 1);
+        diffDays += new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0).getDate();
+    }
 
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = `
-                    <div class="item"><i class="fas fa-calendar-alt"></i> Years: ${diffYears}</div>
-                    <div class="item"><i class="fas fa-calendar-day"></i> Months: ${diffMonths}</div>
-                    <div class="item"><i class="fas fa-calendar-day"></i> Days: ${diffDays}</div>
-                    <div class="item"><i class="fas fa-clock"></i> Hours: ${diffHours}</div>
-                    <div class="item"><i class="fas fa-hourglass-half"></i> Minutes: ${diffMinutes}</div>
-                    <div class="item"><i class="fas fa-stopwatch"></i> Seconds: ${diffSeconds}</div>
-                `;
-            }
+    // Adjust for negative years and months
+    if (diffMonths < 0) {
+        diffYears--;
+        diffMonths += 12;
+    }
 
-            function openTab(evt, tabName) {
-                // Hide all tabcontent elements
-                const tabcontents = document.getElementsByClassName("tabcontent");
-                for (let i = 0; i < tabcontents.length; i++) {
-                    tabcontents[i].style.display = "none";
-                }
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+        <div class="item"><i class="fas fa-calendar-alt"></i> Years: ${diffYears}</div>
+        <div class="item"><i class="fas fa-calendar-day"></i> Months: ${diffMonths}</div>
+        <div class="item"><i class="fas fa-calendar-day"></i> Days: ${diffDays}</div>
+        <div class="item"><i class="fas fa-clock"></i> Hours: ${diffHours}</div>
+        <div class="item"><i class="fas fa-hourglass-half"></i> Minutes: ${diffMinutes}</div>
+        <div class="item"><i class="fas fa-stopwatch"></i> Seconds: ${diffSeconds}</div>
+    `;
+}
 
-                // Remove 'active' class from all tablinks
-                const tablinks = document.getElementsByClassName("tablinks");
-                for (let i = 0; i < tablinks.length; i++) {
-                    tablinks[i].classList.remove("active");
-                }
+function openTab(evt, tabName) {
+    // Hide all tabcontent elements
+    const tabcontents = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+    }
 
-                // Show the current tab, and add an 'active' class to the button that opened the tab
-                document.getElementById(tabName).style.display = "block";
-                evt.currentTarget.classList.add("active");
-            }
+    // Remove 'active' class from all tablinks
+    const tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
 
-            // By default, display the first tab
-            document.getElementById("History").style.display = "block";
-            document.getElementsByClassName("tablinks")[0].classList.add("active");
+    // Show the current tab, and add an 'active' class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+// By default, display the first tab
+document.getElementById("History").style.display = "block";
+document.getElementsByClassName("tablinks")[0].classList.add("active");
         </script>
     </body>
 </html>
